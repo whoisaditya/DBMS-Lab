@@ -1,0 +1,112 @@
+\sql
+\connect root@localhost
+
+create database lab_da_4;
+use lab_da_4;
+
+// 1. In a single output window print prime numbers upto 20
+
+delimiter $$
+create procedure q1(IN n int, OUT result varchar(255))
+begin
+declare j, i, flag int; 
+set j:=2; 
+set result:=' '; 
+while(j<n) do 
+set i:=2;
+set flag:=0;
+
+while(i<=j) do 
+if(j%i=0)then
+set flag:=flag+1;
+end if;
+set i:=i+1; 
+end while;
+
+if (flag=1) then
+set result:=concat(result, j, ', '); 
+end if ;
+set j:=j+1; 
+end while;
+
+end $$
+
+call q1(20, @result);
+select substr(@result, 1, length(@result)-1)
+
+
+// Using DO WHILE LOOP  insert the following into the table shop and show the table content
+
+
+// Question 2
+drop table if exists shop;
+create table shop(
+    id int primary key,
+    Name varchar(255)
+);
+
+delimiter $$
+drop procedure if exixts q2$$
+create procedure q2()
+begin
+    declare count int;
+    set count = 1;
+    while count <=11 do
+        insert into course values(count+1,concat('shop', count))
+    set count count = count + 2
+    end while;
+end$$
+call q2()
+select * from shop;
+
+// Question 3
+delimiter $$
+drop procedure if exists q3$$
+create procedure q3()
+begin
+    declare count int;
+    set count = 0;
+
+    while count < 6 do
+        select * from shop limit 3 offset count;
+        set count=count+3;
+    end while;
+end$$
+call q3();
+
+// Question 4
+delimiter $$
+drop procedure if exists q4$$
+create procedure q4()
+begin
+    select * from shop 
+    where id in (2,6,8);
+end$$
+call q4();
+
+// Question 5
+drop table if exists shopName;
+create table shopName
+(
+Name varchar(50) not null
+);
+select * from shopName;
+desc shopName;
+
+delimiter $$
+drop procedure if exists q5 $$
+create procedure q5()
+begin 
+declare flag int;
+declare stg varchar(20);
+set flag=8;
+while (flag<=12)
+do 
+set stg=(select Name from shop where ID=flag);
+insert into shopName values (stg);
+set flag=flag+2;
+end while;
+end $$
+call q5();
+select * from shop;
+select * from shopName;
