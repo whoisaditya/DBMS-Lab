@@ -43,10 +43,10 @@ INSERT INTO administrator VALUES
 ('A02', 'manoj', 55000),
 ('A03', 'mampi',  57000),
 ('A05', 'sukumar', 60000);
-
+/*
 Question 1
 Retrieve the course id, title and credits of engineering department, Use alias 'c' for the course table
-
+*/
 SELECT courseid, title, credits 
 FROM c 
 WHERE (
@@ -54,11 +54,11 @@ WHERE (
     FROM department 
     WHERE name = 'engineering')
     = c.departmentid;
-
+/*
 Question 2
 Retrieve the course name and course credit of courses which have the highest credit in each department.
 Display the record having the highest credit first.
-
+*/
 SELECT
     title, credits
 FROM
@@ -73,11 +73,11 @@ WHERE
         departmentid)
 ORDER BY
     credits desc;
-
+/*
 Question 3
 Retrieve the course id and course name which are satisfying the following condition: (i) administrator of the 
 respective department is making the salary more than 55000.
-
+*/
 SELECT
     courseid, title
 FROM
@@ -99,10 +99,11 @@ WHERE
         )
     );
 
+/*
 Question 4
 Increase the salary (new salary: salary + 1000) of the administrator who is managing the 'operations 
 management' course. Display the updated record. 
-
+*/
 UPDATE 
     administrator set salary = salary + 1000
 WHERE
@@ -118,15 +119,15 @@ WHERE
         FROM
             course
         WHERE
-            title = 'operations management'
+            title =0'operations management'
         )
     );
 
 SELECT * FROM administrator;
-
+/*
 Question 5
 Delete the tuples from the course table where the department starts before 15th of May, 2021.
-
+*/
 DELETE
 FROM
     course
@@ -141,28 +142,10 @@ WHERE
     );
 
 SELECT * FROM course;
-
+/*
 Question 6
 Perform the right join on department and administrator table and retrieve department (id, Name) and administrator (name, salary).
-
-Q2 with join
-Select
-	*
-From
-	course
-Join
-	department as dept
-On
-	course.departmentid = dept.departmentid
-Join
-	administrator as admin
-On 
-	dept.adminid = admin.adminid
-Where
-	admin.salary > 55000
-
-
-Question 6
+*/
 
 Select dept.departmentid, dept.name, admin.name, admin.salary
 From

@@ -5,7 +5,6 @@ create database lab_da_4;
 use lab_da_4;
 
 // 1. In a single output window print prime numbers upto 20
-
 delimiter $$
 create procedure q1(IN n int, OUT result varchar(255))
 begin

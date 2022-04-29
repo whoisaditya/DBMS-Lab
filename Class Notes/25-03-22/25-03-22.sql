@@ -10,7 +10,6 @@ create table parents(
     value int
 );
 
-[15:55] Jyotismita Chaki
     
 //BEFORE insert
 select * from parents;
